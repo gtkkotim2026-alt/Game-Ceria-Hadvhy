@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Game Ceria Hadvhy</title>
+<style>
+:root{--bg:#fff4dc;--ink:#2b2b3a;--card:#ffffff;--acc:#ffb703;--shadow:rgba(0,0,0,.14);color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b2e;--ink:#f5f1ff;--card:#2a2745;--shadow:rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#1d1b2e;--ink:#f5f1ff;--card:#2a2745;--shadow:rgba(0,0,0,.4);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Comic Sans MS",system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
+.float{position:fixed;font-size:42px;opacity:.35;pointer-events:none;animation:fl 6s ease-in-out infinite;z-index:0}
+@keyframes fl{50%{transform:translateY(-18px) rotate(8deg)}}
+header{position:relative;z-index:1;text-align:center;padding:36px 16px 18px}
+.logo{font-size:64px;line-height:1;animation:bn 2s ease-in-out infinite}
+@keyframes bn{50%{transform:translateY(-8px)}}
+h1{margin:8px 0 4px;font-size:clamp(34px,9vw,64px);letter-spacing:1px}
+h1 span:nth-child(1){color:#e8453c}h1 span:nth-child(2){color:#2f6fe4}h1 span:nth-child(3){color:#2fae5a}
+.tag{margin:0;font-size:clamp(16px,3.5vw,22px);opacity:.85}
+main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:10px 16px 40px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0 20px}
+.chip{font:inherit;font-size:16px;padding:8px 16px;border-radius:999px;border:3px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
+.chip.on{background:var(--acc);color:#2b2b3a;border-color:#c98700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.game{background:var(--card);border-radius:24px;overflow:hidden;box-shadow:0 6px 0 var(--shadow);display:flex;flex-direction:column;transition:transform .2s}
+.game:hover{transform:translateY(-6px) rotate(-1deg)}
+.thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:68px}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.body h3{margin:0;font-size:22px}
+.body p{margin:0;font-size:15px;opacity:.85;flex:1}
+.meta{font-size:13px;font-weight:bold}
+.meta span{display:inline-block;background:var(--bg);padding:3px 10px;border-radius:999px;margin-right:4px}
+.play{display:block;text-align:center;text-decoration:none;font-size:20px;font-weight:bold;padding:12px;border-radius:16px;background:var(--acc);color:#2b2b3a;box-shadow:0 5px 0 #c98700}
+.play:active{transform:translateY(4px);box-shadow:0 1px 0 #c98700}
+.soon{opacity:.75}
+.soon .play{background:#bbb;box-shadow:0 5px 0 #888;pointer-events:none}
+footer{position:relative;z-index:1;text-align:center;padding:20px 16px 30px;font-size:14px;opacity:.75}
+</style></head><body>
+
+<span class="float" style="left:4%;top:12%">⭐</span>
+<span class="float" style="right:6%;top:18%;animation-delay:1s">🎈</span>
+<span class="float" style="left:8%;top:62%;animation-delay:2s">🧩</span>
+<span class="float" style="right:5%;top:70%;animation-delay:3s">🚀</span>
+
+<header>
+  <div class="logo">🎮</div>
+  <h1><span>Game</span> <span>Ceria</span> <span>Hadvhy</span></h1>
+  <p class="tag">Belajar sambil bermain, seru dan menyenangkan! 🌈</p>
+</header>
+
+<main>
+  <div class="bar" id="filters"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>© <span id="yr"></span> Game Ceria Hadvhy • Dibuat dengan ❤️ untuk anak-anak Indonesia</footer>
+
+<script>
+/* ============================================================
+   EDIT DI SINI SAJA 👇
+   - link   : alamat game (contoh: "games/adu-cepat-berhitung.html" atau "https://...")
+   - soon   : true  = tampil "Segera Hadir" (tombol mati), false = bisa dimainkan
+   - kategori: dipakai untuk tombol filter di atas
+   Untuk menambah game, salin satu blok { ... }, lalu tempel di bawahnya.
+   ============================================================ */
+const GAMES = [
+  {
+    judul: "Adu Cepat Berhitung",
+    deskripsi: "Dua pemain berlomba menjawab soal: lari, berdayung, naik tangga, dan tarik tambang!",
+    emoji: "🏁",
+    warna: "#ffd6d1",
+    kategori: "Matematika",
+    usia: "Kelas 1",
+    pemain: "2 Pemain",
+    link: "#",          // <-- ganti dengan link game
+    soon: false
+  },
+  {
+    judul: "Game Baru 1",
+    deskripsi: "Deskripsi singkat game. Ganti teks ini sesuai game kamu.",
+    emoji: "🔤",
+    warna: "#d6e6ff",
+    kategori: "Membaca",
+    usia: "Kelas 1",
+    pemain: "1 Pemain",
+    link: "#",
+    soon: true
+  },
+  {
+    judul: "Game Baru 2",
+    deskripsi: "Deskripsi singkat game. Ganti teks ini sesuai game kamu.",
+    emoji: "🧩",
+    warna: "#d9f5df",
+    kategori: "Puzzle",
+    usia: "Kelas 1",
+    pemain: "1 Pemain",
+    link: "#",
+    soon: true
+  },
+  {
+    judul: "Game Baru 3",
+    deskripsi: "Deskripsi singkat game. Ganti teks ini sesuai game kamu.",
+    emoji: "🎨",
+    warna: "#fff0b8",
+    kategori: "Kreativitas",
+    usia: "Kelas 1",
+    pemain: "1 Pemain",
+    link: "#",
+    soon: true
+  }
+];
+/* ============================================================ */
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let aktif = "Semua";
+
+function tampil() {
+  const kat = ["Semua", ...new Set(GAMES.map(g => g.kategori))];
+  document.getElementById("filters").innerHTML = kat
+    .map(k => `<button class="chip ${k === aktif ? "on" : ""}" data-k="${esc(k)}">${esc(k)}</button>`).join("");
+  document.querySelectorAll(".chip").forEach(b => b.onclick = () => { aktif = b.dataset.k; tampil(); });
+
+  document.getElementById("grid").innerHTML = GAMES
+    .filter(g => aktif === "Semua" || g.kategori === aktif)
+    .map(g => `
+      <article class="game ${g.soon ? "soon" : ""}">
+        <div class="thumb" style="background:${esc(g.warna)}">${esc(g.emoji)}</div>
+        <div class="body">
+          <h3>${esc(g.judul)}</h3>
+          <p>${esc(g.deskripsi)}</p>
+          <div class="meta"><span>${esc(g.kategori)}</span><span>${esc(g.usia)}</span><span>${esc(g.pemain)}</span></div>
+          <a class="play" href="${esc(g.link)}">${g.soon ? "⏳ Segera Hadir" : "▶ Main Sekarang"}</a>
+        </div>
+      </article>`).join("");
+}
+document.getElementById("yr").textContent = new Date().getFullYear();
+tampil();
+</script>
+</body></html>
